@@ -1,0 +1,20 @@
+Steps for MNE analysis
+
+1. Denoise sqd file, using sqddenoise package
+2. Make a coreg.txt file in MEG160, following directions on MEGwiki for Sqd to Fif conversion
+    e.g. KIT/R0253_Narwhal_coreg.txt
+3. Convert sqd file to txt using matsqd_txt.m  -->NOTE: this takes a very long time!
+    e.g. matsqd_txt('AUDI','R0253','AUDI_blocked')
+4. Convert txt file to fif using sqdtxt2fif.csh, 
+    e.g. ./sqdtxt2fif.csh AUDI R0253 AUDI_blocked 500
+5. Mark bad channels using preProc_setup.csh
+    e.g. ./preProc_setup.csh AUDI R1841 
+6. Convert eve file from binary using binary_conversion.py
+    e.g. python binary_conversion.py AUDI R0253 AUDI_random
+7. Find the samples containing blinks using rej_fif2blinkrej.m
+    e.g. rej_fif2blinkrej('AUDI','R0253','AUDI_random',0);
+8. Make a new eve file with the rejected trials using rej_rej2eve.py
+    e.g. python rej_rej2eve.py AUDI R0253 
+
+10. Do averaging with preProc_avg.csh
+    e.g. ./preProc_avg.csh NARWHAL R1855 Narwhal 
