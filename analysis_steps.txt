@@ -4,7 +4,7 @@ Steps for MNE analysis
 2. Make a coreg.txt file in MEG160, following directions on MEGwiki for Sqd to Fif conversion
     e.g. KIT/R0253_Narwhal_coreg.txt
 3. Convert sqd file to txt using matsqd_txt.m  -->NOTE: this takes a very long time!
-    e.g. matsqd_txt('AUDI','R0253','AUDI_blocked')
+    e.g. matsqd_txt('AUDI','R0253','AUDI_blocked-Filtered')
 4. Convert txt file to fif using sqdtxt2fif.csh, 
     e.g. ./sqdtxt2fif.csh AUDI R0253 AUDI_blocked 500
 5. Mark bad channels using preProc_setup.csh
