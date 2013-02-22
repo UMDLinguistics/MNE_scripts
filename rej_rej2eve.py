@@ -14,6 +14,16 @@ import condCodes as cc
 exp = sys.argv[1]
 sub = sys.argv[2]
 
+# data_struct1 = 1
+# data_struct2 = 1.0
+# data_struct3 = 'xxx'
+# data_struct3a = 'xxx yyy zzz'
+# data_struct4 = ['xxx', 'yyy','zzz']
+# data_struct4b = [1,2,3]
+# data_struct4c = [data_struct4, datastruct4b]
+# data_struct5 = {4:245, 3:212}
+# data_struct6 = (1,2,3)  ##tuple
+
 
 pre = '/Users/Shared/'+exp+'/data'
 data_d = '%s/%s/' % (pre,sub)

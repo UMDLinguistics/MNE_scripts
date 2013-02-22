@@ -13,7 +13,7 @@ cd /Users/Shared/$1/data/$2
 mkdir eve
 
 ##convert the data
-mne_kit2fiff --elp KIT/$2.elp --hpi KIT/$2_$3_coreg.txt --out $2_$3-Filtered_raw.fif --sns /Users/Shared/MNE_scripts/function_inputs/SensorsCommaKIT.txt --raw KIT/$2_$3-Filtered-matexp.txt --aligntol 20 --stim 163:164:165:166:167:168:169:170:171:172:173:174:175:176:179:180:181:182:183:184:185:186:187:188 --stimthresh 20 --sfreq $4 --hsp KIT/$2.hsp
+mne_kit2fiff --raw KIT/$2_$3-Filtered-matexp.txt --elp KIT/$2.elp --hpi KIT/$2_$3_coreg.txt --out $2_$3-Filtered_raw.fif --sns /Users/Shared/MNE_scripts/function_inputs/SensorsCommaKIT.txt --aligntol 100 --stim 163:164:165:166:167:168:169:170:171:172:173:174:175:176:179:180:181:182:183:184:185:186:187:188 --stimthresh 20 --sfreq $4 --hsp KIT/$2.hsp
 
 ##output a text file containing events that were read
 mne_process_raw --raw $2_$3-Filtered_raw.fif --eventsout eve/$2_$3.eve --allevents
