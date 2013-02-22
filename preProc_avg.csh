@@ -12,6 +12,7 @@ mkdir logs
 
 python /Users/Shared/MNE_scripts/makeAveFiles.py $1 $2 $3
 
+
 mne_process_raw --raw $2_$3-Filtered_raw.fif --ave ave/$2_$3.ave --projoff --lowpass 20 
 
 
