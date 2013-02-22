@@ -13,7 +13,7 @@ echo "Marking bad channels"
 
 if ( -e $2_bad_chan.txt ) then
     foreach f ( *_raw.fif )
-	mne_mark_bad_channels --bad $2_bad_chan.txt $f 
+	mne_mark_bad_channels $f --bad $2_bad_chan.txt  
     end
 endif
 
