@@ -36,7 +36,6 @@ evoked = mne.fiff.Evoked(data_file +'-ave.fif',setno=args.cond)
 meg_data = evoked.data
 
 print meg_data
-print args.chans
 print meg_data[args.chans]
 
 data_to_plot = meg_data[args.chans] #if i say 83, i mean 84
