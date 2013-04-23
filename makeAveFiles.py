@@ -8,7 +8,7 @@ import condCodes as cc
 
 def makeAveFiles(exp, subjID, paradigm):
 
-	filePrefix = '/Users/Shared/'+exp+'/data/'+ subjID
+	filePrefix = '/Users/Shared/Experiments/'+exp+'/data/'+ subjID #Lawrence added 'Experiments' 4.23.13
  	magRej = "3000e-15"
 
 
