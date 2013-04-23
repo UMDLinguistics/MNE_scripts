@@ -1,10 +1,10 @@
 function matsqd_txt(expName, subjID, paradigmName)
 
-%Data needs to be stored in /Users/Shared/expName/data/subjID/KIT
+%Data needs to be stored in /Users/Shared/Experiments/expName/data/subjID/KIT %Lawrence added 'Experiments' 4.23.13
 %Example 
 %matsqd_txt('AUDI','R0253','AUDI_blocked-Filtered')
 
-inPath = strcat('/Users/Shared/',expName,'/data/',subjID,'/KIT/');
+inPath = strcat('/Users/Shared/Experiments/',expName,'/data/',subjID,'/KIT/');  %Elizabeth added 'Experiments' 4.23.13
 inFile = strcat(inPath,subjID,'_',paradigmName)
 
 data = sqdread(strcat(inFile,'.sqd'));
