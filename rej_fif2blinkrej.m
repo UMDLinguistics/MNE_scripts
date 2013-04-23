@@ -17,11 +17,11 @@ chan_c = {'blink'};
 
 %%%%%%%%%
 % find the appropriate rej_thr.txt file
-fiff = strcat('/Users/Shared/',expt,'/data/',subjID,'/',subjID,'_',paradigmName,'-Filtered_raw.fif')
+fiff = strcat('/Users/Shared/Experiments/',expt,'/data/',subjID,'/',subjID,'_',paradigmName,'-Filtered_raw.fif') %Lawrence added 'Experiments' 4.23.13
 
 [~, n, ~] = fileparts(fiff);
 ind = find(n == '_', 1, 'first');
-sub_thr = ['/Users/Shared/' expt '/data/' subjID '/rej/rej_thr.txt'];
+sub_thr = ['/Users/Shared/Experiments/' expt '/data/' subjID '/rej/rej_thr.txt']; %Lawrence added 'Experiments' 4.23.13
 if exist(sub_thr, 'file')
     disp('Using subject specific thresholds...')
     rej_path = sub_thr;
