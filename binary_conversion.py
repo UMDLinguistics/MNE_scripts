@@ -6,7 +6,7 @@ import sys
 def binary_conversion(exp, subjID, paradigm):
 
 	maxCount = 16777215  #2^24-1, because we use 24 good triggers (162-187, excluding 176 and 177; could go to 188 but more than 2^24 screws MNE conversion)
-	filePath = '/Users/Shared/'+exp+'/data/'
+	filePath = '/Users/Shared/Experiments/'+exp+'/data/' #Lawrence added 'Experiments' 4.23.13
 	
 	trigSeqDict = {1:162,2:163,3:164,4:165,5:166,6:167,7:168,8:169,9:170,10:171,11:172,12:173,13:174,14:175,15:178,16:179,17:180,18:181,19:182,20:183,21:184,22:185,23:186,24:187}
 	
