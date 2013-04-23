@@ -25,7 +25,7 @@ sub = sys.argv[2]
 # data_struct6 = (1,2,3)  ##tuple
 
 
-pre = '/Users/Shared/'+exp+'/data'
+pre = '/Users/Shared/Experiments/'+exp+'/data' #Lawrence added 'Experiments' 4.23.13
 data_d = '%s/%s/' % (pre,sub)
 temp_d = '%s/%s/rej/' % (pre, sub)
 eve_dir = '%s/%s/eve/' % (pre, sub)
