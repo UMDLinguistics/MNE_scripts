@@ -9,7 +9,7 @@
 setenv MNE_ROOT /Applications/MNE-2.7.4-3378-MacOSX-x86_64
 source $MNE_ROOT/bin/mne_setup
 
-cd /Users/Shared/$1/data/$2
+cd /Users/Shared/Experiments/$1/data/$2  #Elizabeth added 'Experiments' 4.23.13
 mkdir eve
 
 ##convert the data
