@@ -25,7 +25,7 @@ print args.chans
 
 
 ##Filenames
-data_path = '/Users/Shared/'+args.exp+'/data/'+args.subjID + '/'
+data_path = '/Users/Shared/Experiments/'+args.exp+'/data/'+args.subjID + '/' #Lawrence added 'Experiments' 4.23.13
 data_file = data_path + args.subjID + '_' + args.par 
 
 print data_path
