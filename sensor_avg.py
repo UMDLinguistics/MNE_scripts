@@ -19,9 +19,11 @@ parser = argparse.ArgumentParser(description='Get input')
 parser.add_argument('exp',type=str)
 parser.add_argument('subjID',type=str)
 parser.add_argument('par',type=str)
-parser.add_argument('chan_filename',type=str, help='include file extension')
+parser.add_argument('chan_filename',type=str,help='include file extension')
 parser.add_argument('condList',type=str,nargs='+',help='condition name will be converted to an integer')
 #parser.add_argument('chans',type=int,nargs='+',help='enter channel number separated by space in between)
+parser.add_argument('--rms',action='store_true',help='optional argument: it does root-mean-square of data')
+#things to add: (1) pickle module so we don't have to import AUDI_cond for everyone, (2) x and y = 0 axes for plot, and (3) legends for each condition on plot
 
 args=parser.parse_args()
 
@@ -44,7 +46,7 @@ print "chans as interpreted by iPython: {}".format(chans)
 for cond in args.condList:
     
 	condName = cond
-	print cond
+	print "Processing {}...".format(cond)
 	cond = expCond.condDict[cond]
 	print "{} is converted {} for python indexing, which is the new cond".format(condName, cond)
 	
@@ -58,10 +60,17 @@ for cond in args.condList:
 	print meg_data[chans]
 	
 	data_to_plot = meg_data[chans]
-	data_to_plot = np.mean(meg_data[chans],0)
+	
+	if args.rms:
+		data_to_plot = np.sqrt(np.mean(meg_data[chans]**2,0))
+		print "root-mean-square applied"
+	else:
+		data_to_plot = np.mean(meg_data[chans],0)
+		print "no root-mean-square applied"
 	
 	plt.plot(times,data_to_plot)
-
+	print "done"
 
 
 plt.show()
+print "All done."
