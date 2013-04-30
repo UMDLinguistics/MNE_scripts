@@ -23,10 +23,15 @@ parser.add_argument('chan_filename',type=str,help='include file extension')
 parser.add_argument('condList',type=str,nargs='+',help='condition name will be converted to an integer')
 #parser.add_argument('chans',type=int,nargs='+',help='enter channel number separated by space in between)
 parser.add_argument('--rms',action='store_true',help='optional argument: it does root-mean-square of data')
-#things to add: (1) pickle module so we don't have to import AUDI_cond for everyone, (2) x and y = 0 axes for plot, and (3) legends for each condition on plot
+parser.add_argument('-b','--baseline',help='optional argument: name the baseline condition to give it a thicker plot line')
+#things to add: (1) pickle module so we don't have to import AUDI_cond for everyone
 
 args=parser.parse_args()
 
+
+if args.baseline:
+	if args.baseline not in args.condList:
+		sys.exit("Error: Baseline condition does not exist")
 
 ##Filenames
 data_path = '/Users/Shared/Experiments/'+args.exp+'/data/'+args.subjID + '/'
@@ -46,7 +51,7 @@ print "chans as interpreted by iPython: {}".format(chans)
 for cond in args.condList:
 	
 	condName = cond
-	print "Processing {}...".format(cond)
+	print "Processing {}...".format(condName)
 	cond = expCond.condDict[cond]
 	print "{} is converted {} for python indexing, which is the new cond".format(condName, cond)
 	
@@ -68,11 +73,24 @@ for cond in args.condList:
 		data_to_plot = np.mean(meg_data[chans],0)
 		print "no root-mean-square applied"
 	
-	plt.plot(times,data_to_plot)
+#	plt.plot(times,data_to_plot)
+
+	
+	if args.baseline==condName: # Baseline condition gets extra thick line
+		plt.plot(times,data_to_plot,linewidth=3)
+	else:
+		plt.plot(times,data_to_plot)
+	
 	#plt.legend(args.condList, loc='best') ## adding legend can work inside and outside the loop
 	print "Processing {} complete".format(condName)
 
 
 plt.legend(args.condList, loc='best')
+plt.grid(True)
+plt.axhline(linewidth=1,color='k')
+plt.axvline(linewidth=1,color='k')
+plt.xlabel('Time (millisecond)')
+plt.ylabel('Magnetic Amplitude (Tesla)')
+
 plt.show()
 print "All done!"
