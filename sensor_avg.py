@@ -44,7 +44,7 @@ chans = [chan-1 for chan in chans] # this accounts for python indexing at 0
 print "chans as interpreted by iPython: {}".format(chans)
 
 for cond in args.condList:
-    
+	
 	condName = cond
 	print "Processing {}...".format(cond)
 	cond = expCond.condDict[cond]
@@ -69,8 +69,10 @@ for cond in args.condList:
 		print "no root-mean-square applied"
 	
 	plt.plot(times,data_to_plot)
-	print "done"
+	#plt.legend(args.condList, loc='best') ## adding legend can work inside and outside the loop
+	print "Processing {} complete".format(condName)
 
 
+plt.legend(args.condList, loc='best')
 plt.show()
-print "All done."
+print "All done!"
