@@ -4,11 +4,11 @@ import argparse
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import readInput
-import pprint, pickle
+import sys
 
 #to run script, type: ipython [this python file name] [experiment name ('exp')] [subject ID ('subjID')] [paradigm ('par')] [name of file containing the experiment's dictionary('expCondDict')] [name of file containing channels of interest ('chan_filename')] [condition(s) ('condList'); separate multiple conditions with space]
 #example
-#ipython sensor_avg.py AUDI R1524 AUDI_blocked AUDI_R1524_blocked_Bark9_topSourceM100.txt Bark8 Bark9 Bark10 Bark11 
+#ipython sensor_avg.py AUDI R1524 AUDI_blocked AUDI_cond AUDI_R1524_blocked_Bark9_topSinkM100.txt Bark8 Bark9 Bark10 Bark11 Bark12 Bark13 Bark14 Bark15
 
 #The last number is the position of the condition in the average file
 
@@ -17,10 +17,9 @@ parser = argparse.ArgumentParser(description='Get input')
 parser.add_argument('exp',type=str)
 parser.add_argument('subjID',type=str)
 parser.add_argument('par',type=str)
-parser.add_argument('expCondDict',type=str, help='file contains the experiment condition dictionary; include file extension')
+parser.add_argument('expCondDict',type=str, help='file contains the experiment condition dictionary; do NOT include file extension')
 parser.add_argument('chan_filename',type=str,help='file contains the channels of interest; include file extension')
 parser.add_argument('condList',type=str,nargs='+',help='condition name will be converted to an integer')
-#parser.add_argument('chans',type=int,nargs='+',help='enter channel number separated by space in between)
 parser.add_argument('--rms',action='store_true',help='optional argument: it does root-mean-square of data')
 parser.add_argument('-b','--baseline',help='optional argument: name the baseline condition to give it a thicker plot line')
 
@@ -32,12 +31,11 @@ if args.baseline:
 		sys.exit("Error: Baseline condition does not exist. It must be from condList")
 
 
-##Condition dictionary
+##Import condition dictionary
 
-dict_file = open('/Users/Shared/Experiments/'+args.exp+'/'+args.expCondDict, 'rb')
-condDict = pickle.load(dict_file)
-pprint.pprint(condDict)
-dict_file.close()
+sys.path.insert(0, '/Users/Shared/Experiments/'+args.exp + '/')
+pm = __import__(args.expCondDict)
+condDict = pm.condDict
 
 ##Filenames
 data_path = '/Users/Shared/Experiments/'+args.exp+'/data/'+args.subjID + '/'
@@ -54,7 +52,7 @@ chans = [chan-1 for chan in chans] # this accounts for python indexing at 0
 print "chans as interpreted by iPython: {}".format(chans)
 
 
-##Plotting condition(s)
+##Plot condition(s)
 for cond in args.condList:
 	
 	condName = cond
