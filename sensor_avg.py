@@ -10,7 +10,7 @@ import sys
 #example
 #ipython sensor_avg.py AUDI R1524 AUDI_blocked AUDI_cond AUDI_R1524_blocked_Bark9_topSinkM100.txt Bark8 Bark9 Bark10 Bark11 Bark12 Bark13 Bark14 Bark15
 
-#The last number is the position of the condition in the average file
+#You can optionally add arguments to do rms ("--rms") and/or thicken one of the condition lines for better visual ("-b [condition name]" or "--baseline [condition name]")
 
 ##Get input
 parser = argparse.ArgumentParser(description='Get input')
@@ -19,7 +19,7 @@ parser.add_argument('subjID',type=str)
 parser.add_argument('par',type=str)
 parser.add_argument('expCondDict',type=str, help='file contains the experiment condition dictionary; do NOT include file extension')
 parser.add_argument('chan_filename',type=str,help='file contains the channels of interest; include file extension')
-parser.add_argument('condList',type=str,nargs='+',help='condition name will be converted to an integer')
+parser.add_argument('condList',type=str,nargs='+',help='separate multiple conditions with space')
 parser.add_argument('--rms',action='store_true',help='optional argument: it does root-mean-square of data')
 parser.add_argument('-b','--baseline',help='optional argument: name the baseline condition to give it a thicker plot line')
 
