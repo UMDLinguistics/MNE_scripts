@@ -4,7 +4,7 @@ import argparse
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import readInput
-import sys
+#import sys
 
 #to run script, type: ipython [this python file name] [experiment name ('exp')] [subject ID ('subjID')] [paradigm ('par')] [name of file containing the experiment's dictionary('expCondDict')] [name of file containing channels of interest ('chan_filename')] [condition(s) ('condList'); separate multiple conditions with space]
 #example
@@ -33,9 +33,12 @@ if args.baseline:
 
 ##Import condition dictionary
 
-sys.path.insert(0, '/Users/Shared/Experiments/'+args.exp + '/')
-pm = __import__(args.expCondDict)
-condDict = pm.condDict
+#sys.path.insert(0, '/Users/Shared/Experiments/'+args.exp + '/')
+#pm = __import__(args.expCondDict)
+#condDict = pm.condDict
+
+dict_file = open('/Users/Shared/Experiments/'+args.exp + '/' + args.expCondDict + '.py', 'rb')
+exec(dict_file.read())
 
 ##Filenames
 data_path = '/Users/Shared/Experiments/'+args.exp+'/data/'+args.subjID + '/'
@@ -53,6 +56,10 @@ print "chans as interpreted by iPython: {}".format(chans)
 
 
 ##Plot condition(s)
+cm = plt.get_cmap('cool') # this chooses the colors to use for the lines
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.set_color_cycle([cm(1.*i/len(args.condList)) for i in range(len(args.condList))])
 for cond in args.condList:
 	
 	condName = cond
@@ -82,9 +89,9 @@ for cond in args.condList:
     # optional baseline:
 	
 	if args.baseline==condName: # Baseline condition gets extra thick line
-		plt.plot(times,data_to_plot,linewidth=3)
+		ax.plot(times,data_to_plot,linewidth=4, linestyle='--')
 	else:
-		plt.plot(times,data_to_plot)
+		ax.plot(times,data_to_plot,linewidth=2)
 	
 	#plt.legend(args.condList, loc='best') ## adding legend can work inside and outside the loop
 	print "Processing {} complete".format(condName)
