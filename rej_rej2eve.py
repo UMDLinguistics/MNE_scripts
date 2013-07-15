@@ -71,6 +71,7 @@ def new_eve(eve):
     print 'Starting with %s' % eve
     eve_d = readTable(eve)
     rej_types = ('blink','blink') # , 'grad', 'mag', 'eeg'
+    print 'epochs.keys:',epochs.keys()
     k = filter(lambda y: y in eve, epochs.keys())[0]
     print 'k', k
     new_eve = eve_d[:]
