@@ -8,7 +8,8 @@ import sys
 
 #to run script, type: ipython [this python file name] [experiment name ('exp')] [subject ID ('subjID')] [paradigm ('par')] [name of file containing channels of interest ('chan_filename')] [condition(s) ('condList'); separate multiple conditions with space]
 #example
-#ipython sensor_avg.py AUDI R1524 AUDI_blocked AUDI_R1524_blocked_Bark9_topSinkM100amplitude Bark8 Bark9 Bark10 Bark11 Bark12 Bark13 Bark14 Bark15
+#ipython sensor_avg.py AUDI R1851 AUDI_random2 AUDI_R1851_random2_Bark_all_topSinkM100amplitude Bark6 Bark7 Bark5 Bark8 Bark9 Bark4 Bark10 Bark3 Bark2
+#use "run" instead of "ipython" command if you are running this within ipython
 
 #You can optionally add arguments to do rms ("--rms") and/or thicken one of the condition lines for better visual ("-b [condition name]" or "--baseline [condition name]")
 
