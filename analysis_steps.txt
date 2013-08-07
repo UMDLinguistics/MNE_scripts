@@ -9,7 +9,7 @@ Steps for MNE analysis
 	e.g. KIT/R0253_Narwhal_coreg.txt
     **NOTE: Elizabeth will come back and modify details here so you don't have to go to the MEGwiki
 5. Convert txt file to fif using sqdtxt2fif.csh, 
-    e.g. ./sqdtxt2fif.csh AUDI R0253 AUDI_blocked 500
+    e.g. ./sqdtxt2fif.csh NARWHAL R1977 Narwhal 500 03.14.13
     
 6. Mark bad channels using preProc_setup.csh
     e.g. ./preProc_setup.csh AUDI R1841 
