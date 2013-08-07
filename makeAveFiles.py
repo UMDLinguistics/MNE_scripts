@@ -1,7 +1,7 @@
 ###SemPrMM
 ###Make .ave files
 ###usage: python <this script.py> subjectID projType
-###ex: python makeAveFiles.py ya16 projoff
+###ex: python makeAveFiles.py ya16 
 
 import sys
 import condCodes as cc
