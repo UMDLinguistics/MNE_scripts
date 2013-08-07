@@ -1,5 +1,6 @@
 ##This script creates a grand-average across subject averages and outputs to new fif
 ##Note this is for visualization only; doesn't take bad channels into account
+##You need to make a subject list text file, one subject code per row
 
 import numpy as np
 import mne
