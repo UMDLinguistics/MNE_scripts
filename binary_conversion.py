@@ -2,6 +2,7 @@ import readInput
 import writeOutput
 import sys
 
+#script to convert events from binary to human-readable
 
 def binary_conversion(exp, subjID, paradigm):
 
