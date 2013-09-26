@@ -15,6 +15,9 @@ source $MNE_ROOT/bin/mne_setup
 
 cd /Users/Shared/Experiments/$1/data/$2
 mkdir eve
+mkdir rej
+mkdir ave
+mkdir cov
 
 ##extract the data's coregistration info from text file printed from MEG160 #section added by Lawrence on 07.09.13
 sed -e '4,$ ! d' \
