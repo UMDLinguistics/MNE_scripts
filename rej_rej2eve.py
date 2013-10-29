@@ -9,29 +9,20 @@ from os import path as op
 from readInput import readTable
 from writeOutput import writeTable
 
-import condCodes as cc
+#import condCodes as cc
 
 exp = sys.argv[1]
 sub = sys.argv[2]
 
-# data_struct1 = 1
-# data_struct2 = 1.0
-# data_struct3 = 'xxx'
-# data_struct3a = 'xxx yyy zzz'
-# data_struct4 = ['xxx', 'yyy','zzz']
-# data_struct4b = [1,2,3]
-# data_struct4c = [data_struct4, datastruct4b]
-# data_struct5 = {4:245, 3:212}
-# data_struct6 = (1,2,3)  ##tuple
+codeFile = open('/Users/Shared/Experiments/'+exp+'/'+exp+'_condCodes.py', 'rb')
+exec(codeFile.read())
 
 
 pre = '/Users/Shared/Experiments/'+exp+'/data' #Lawrence added 'Experiments' 4.23.13
 data_d = '%s/%s/' % (pre,sub)
 temp_d = '%s/%s/rej/' % (pre, sub)
 eve_dir = '%s/%s/eve/' % (pre, sub)
-                      
-epochs = cc.epochs     ##This is in samples   
-#print epochs       
+                             
 
 type_rep = {'blink':'1000',
             'blink':'1000'
@@ -63,7 +54,7 @@ def reject(type, d, eve_data, rej_data):
             if len(set(ra).intersection(rej_set)) > 0:
                 bad_samp.append(samp)
         #recode events that intersect
-#        print('code:%s\t\t%d colisions \t(%d total)' % (c, len(bad_samp), len(samp_dict.keys())))
+        #print('code:%s\t\t%d colisions \t(%d total)' % (c, len(bad_samp), len(samp_dict.keys())))
         to_return[c] = bad_samp
     return to_return
     
@@ -85,6 +76,7 @@ def new_eve(eve):
         if len(rej) < 1:
             raise Exception('No rej of this type found!')
         bad_dict = reject(type, epochs[k], new_eve, readTable(rej[0]))
+        print bad_dict
         for code, r in bad_dict.items():
             f = lambda x:[x[0], x[1], x[2], str(int(type_rep[type])+int(code))] if x[3] == code and int(x[0]) in r else x
             new_eve[:] = map(f, new_eve)
