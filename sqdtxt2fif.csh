@@ -32,6 +32,7 @@ setenv thresh 20
 ##convert the data
 if ($6) then
 	setenv thresh $6
+endif
 
 mne_kit2fiff --raw KIT/$2_$3_$5-Filtered-matexp.txt --elp KIT/$2_$5.elp --hpi KIT/$2_$3_coreg.txt --out $2_$3-Filtered_raw.fif --sns /Users/Shared/MNE_scripts/function_inputs/SensorsCommaKIT.txt --aligntol 100 --stim 163:164:165:166:167:168:169:170:171:172:173:174:175:176:179:180:181:182:183:184:185:186:187:188 --stimthresh $thresh --sfreq $4 --hsp KIT/$2_$5.hsp
 
