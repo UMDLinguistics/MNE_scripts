@@ -37,6 +37,7 @@ def samp2dict(gen, r):
         new_samp[s] = range(s-r[0],s+r[1])
     return new_samp
 
+
 def reject(type, d, eve_data, rej_data):
 #    print('Rejection type: %s' % type)
     # for each code we're worrying about
