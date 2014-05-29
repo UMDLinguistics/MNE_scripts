@@ -36,6 +36,7 @@ def samp2dict(gen, r):
     for s in gen:
         new_samp[s] = range(s-r[0],s+r[1])
     return new_samp
+    
 
 
 def reject(type, d, eve_data, rej_data):
@@ -64,20 +65,26 @@ def new_eve(eve):
     eve_d = readTable(eve)
     rej_types = ('blink','blink') # , 'grad', 'mag', 'eeg'
     print 'epochs.keys:',epochs.keys()
-    k = filter(lambda y: y in eve, epochs.keys())[0]
-    print 'k', k
+    k = filter(lambda y: y in eve, epochs.keys())  #given your eve file name, see if it contains any paradigm names
+    paradigmKey = max(k, key=len)  #In case your filename contained more than one paradigm name, pick the longest one (to avoid substring problems)
+    print 'k', paradigmKey
     new_eve = eve_d[:]
     for type in rej_types:
         #get type from all_rej
         bname = op.basename(eve)
         base, _, _ = bname.rpartition('Mod.eve')
         search = op.join(temp_d, '%s-Filtered_raw_%s.txt' % (base,type))
-        print 'Search:', search
+        #print 'Search:', search
         rej = glob(search)
+        #print rej
+        
         if len(rej) < 1:
-            raise Exception('No rej of this type found!')
-        bad_dict = reject(type, epochs[k], new_eve, readTable(rej[0]))
-        print bad_dict
+           raise Exception('No rej of this type found!')
+        print epochs[paradigmKey] ##print this line if you want to see what time samples are being used
+        
+        bad_dict = reject(type, epochs[paradigmKey], new_eve, readTable(rej[0]))
+        #print bad_dict
+        
         for code, r in bad_dict.items():
             f = lambda x:[x[0], x[1], x[2], str(int(type_rep[type])+int(code))] if x[3] == code and int(x[0]) in r else x
             new_eve[:] = map(f, new_eve)
