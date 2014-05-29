@@ -9,24 +9,26 @@ from os import path as op
 from readInput import readTable
 from writeOutput import writeTable
 
-#import condCodes as cc
+def main(exp,sub,par):
+	
+	pre = '/Users/Shared/Experiments/'+exp+'/data' 
+	rej_dir = '%s/%s/rej/' % (pre, sub)
+	eve_dir = '%s/%s/eve/' % (pre, sub)
+	
+	eve = eve_dir + '%s_%sMod.eve' % (sub, par)                  
+	
+	print
+	print 'Cond codes:'
+	codeFile = open('/Users/Shared/Experiments/'+exp+'/'+exp+'_condCodes.py', 'rb')
+	exec(codeFile.read())
+	
+	print
+	print 'event file:',eve
+	new_eve(eve, epochs, eve_dir, rej_dir)
+	
 
-exp = sys.argv[1]
-sub = sys.argv[2]
 
-codeFile = open('/Users/Shared/Experiments/'+exp+'/'+exp+'_condCodes.py', 'rb')
-exec(codeFile.read())
-
-
-pre = '/Users/Shared/Experiments/'+exp+'/data' #Lawrence added 'Experiments' 4.23.13
-data_d = '%s/%s/' % (pre,sub)
-temp_d = '%s/%s/rej/' % (pre, sub)
-eve_dir = '%s/%s/eve/' % (pre, sub)
-                             
-
-type_rep = {'blink':'1000',
-            'blink':'1000'
-            }
+#######################################################
 
 def samp2dict(gen, r):
     """
@@ -37,8 +39,6 @@ def samp2dict(gen, r):
         new_samp[s] = range(s-r[0],s+r[1])
     return new_samp
     
-
-
 def reject(type, d, eve_data, rej_data):
 #    print('Rejection type: %s' % type)
     # for each code we're worrying about
@@ -60,20 +60,22 @@ def reject(type, d, eve_data, rej_data):
         to_return[c] = bad_samp
     return to_return
     
-def new_eve(eve):
-    print 'Starting with %s' % eve
+def new_eve(eve, epochs, eve_dir, rej_dir):
+    print 'Running %s' % eve
     eve_d = readTable(eve)
-    rej_types = ('blink','blink') # , 'grad', 'mag', 'eeg'
-    print 'epochs.keys:',epochs.keys()
+    rej_types = ('blink',) # , 'grad', 'mag', 'eeg'
+    type_rep = {'blink':'1000'}
+    print 'epochs.keys listed in condCodes:',epochs.keys()
     k = filter(lambda y: y in eve, epochs.keys())  #given your eve file name, see if it contains any paradigm names
     paradigmKey = max(k, key=len)  #In case your filename contained more than one paradigm name, pick the longest one (to avoid substring problems)
-    print 'k', paradigmKey
+    print 'using epoch key:', paradigmKey
     new_eve = eve_d[:]
+    
     for type in rej_types:
         #get type from all_rej
         bname = op.basename(eve)
         base, _, _ = bname.rpartition('Mod.eve')
-        search = op.join(temp_d, '%s-Filtered_raw_%s.txt' % (base,type))
+        search = op.join(rej_dir, '%s-Filtered_raw_%s.txt' % (base,type))
         #print 'Search:', search
         rej = glob(search)
         #print rej
@@ -92,14 +94,19 @@ def new_eve(eve):
     new_fname = op.join(eve_dir, '%s%s.eve' % (op.basename(eve).rpartition('.eve')[0], 'Rej'))
     print("Writing new eve to %s" % new_fname)
     writeTable(new_fname, new_eve)
+    print
+    
+
+    
     
 if __name__ == '__main__':
+	main(sys.argv[1],sys.argv[2],sys.argv[3])	
 
-    for eve in glob(op.join(eve_dir,'*Mod.eve')):
-       if ('BlinkMod.eve' not in eve):
+    #for eve in glob(op.join(eve_dir,'*Mod.eve')):
+    #   if ('BlinkMod.eve' not in eve):
 ####       eve != glob(op.join(eve_dir, '*BlinkMod.eve'))):
-            print(eve)
-            new_eve(eve)
+    #        print(eve)
+    #        new_eve(eve)
         
             
             
