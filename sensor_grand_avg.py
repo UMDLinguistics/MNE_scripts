@@ -8,8 +8,11 @@ import argparse
 import sys
 import copy
 import readInput
+import collections
 
 #example: run sensor_grand_avg.py NARWHAL narwhal_subj_n9 Narwhal_semprime 
+
+
 
 ###########################################################################
 
@@ -27,20 +30,21 @@ fileName =args.exp+'_condCodes'
 print fileName
 cc = __import__(fileName) ##importing condCodes
 
+
 ##Initialize path variables and read subject list
 expPath = '/Users/Shared/Experiments/'+args.exp+'/'
 data_path = expPath + 'data/'
 results_path = expPath +'results/'
 
-subjList = readInput.readList(expPath + args.subjList+'.txt')	
+subjList = readInput.readList(expPath + 'subjLists/' + args.subjList+'.txt')	
 
 
 ##create structure for mne python to call all the conditions up
-event_id = {}
 labelList = cc.condLabels[args.par]
-for row in labelList:
-	event_id[row[1]]=int(row[0])
-	
+# dictionary from trigger to condition sorted by trigger number
+event_id = collections.OrderedDict(sorted(labelList, key=lambda item : item[0]))
+print event_id
+
 numCond = len(event_id)
 #initialize structures needed to create grand average
 allData = [ [] for item in range(numCond) ]  ##channel x time MEG data
@@ -51,7 +55,7 @@ allNave = [ [] for item in range(numCond) ]  ##number of trials per condition in
 ##Loop through each subject and grab data
 for subj in subjList:
 	data_file = data_path + subj + '/' + subj + '_' + args.par 
-	evokeds = [mne.fiff.read_evoked(data_file + '-ave.fif', setno=cond) for cond in event_id]
+	evokeds = [mne.fiff.read_evoked(data_file + '-ave.fif', setno=event_id[cond]) for cond in event_id]
 	
 	###add to the grand-average structures
 	#evokedTemplate = []
@@ -69,7 +73,7 @@ gaveNave = [np.sum(allNave[cond],0) for cond in range(numCond)]
 
 ##Make a template to fill the grand-average info into
 data_file = data_path + subjList[0] + '/' + subjList[0] + '_' + args.par 
-evokeds = [mne.fiff.read_evoked(data_file + '-ave.fif', setno=cond) for cond in event_id]
+evokeds = [mne.fiff.read_evoked(data_file + '-ave.fif', setno=event_id[cond]) for cond in event_id]
 newEvoked = copy.deepcopy(evokeds)
 
 #fit this summary data into template structure
