@@ -5,7 +5,7 @@ function matsqd_txt(expName, subjID, paradigmName)
 %Example 
 %matsqd_txt('AUDI','R0253','AUDI_blocked-Filtered')
 
-inPath = strcat('/Users/Shared/Experiments/',expName,'/data/',subjID,'/KIT/');
+inPath = strcat('/Volumes/CUTTLEFISH/MEG_Experiments/',expName,'/data/',subjID,'/KIT/');
 inFile = strcat(inPath,subjID,'_',paradigmName)
 
 data = sqdread(strcat(inFile,'.sqd'));
