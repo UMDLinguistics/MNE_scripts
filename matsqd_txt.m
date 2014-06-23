@@ -9,8 +9,7 @@ inPath = strcat('/Volumes/CUTTLEFISH/MEG_Experiments/',expName,'/data/',subjID,'
 inFile = strcat(inPath,subjID,'_',paradigmName)
 
 data = sqdread(strcat(inFile,'.sqd'));
-data_scale(:,1:157) = data(:,1:157)*1e-15;  %%return to Tesla
-data_scale(:,158:192) = data(:,158:192);    %%don't rescale trigger lines
+data(:,1:157) = data(:,1:157)*1e-15;  %%return to Tesla, but don't rescale trigger lines
 
 outFile = strcat(inFile,'-matexp.txt')
 dlmwrite(outFile,data_scale,'\t');
