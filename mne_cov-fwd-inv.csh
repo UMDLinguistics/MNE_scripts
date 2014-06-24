@@ -8,12 +8,12 @@ setenv MNE_ROOT /Applications/MNE-2.7.4-3378-MacOSX-x86_64
 source $MNE_ROOT/bin/mne_setup
 
 
-cd /Users/Shared/Experiments/$1/data/$2
+cd /Volumes/CUTTLEFISH/MEG_Experiments/$1/data/$2
 
 setenv SUBJECT $2
 
 ##create noise covariance matrix
-sudo mne_process_raw --raw $2_$3-Filtered_raw.fif --projon --cov /Users/Shared/Experiments/$1/data/$2/cov/$2_$3.cov
+mne_process_raw --raw $2_$3-Filtered_raw.fif --projon --cov /Users/Shared/Experiments/$1/data/$2/cov/$2_$3.cov
 #permission required
 #if you have more than one, use something like
 #mne_process_raw  --raw ../$1_MaskedMMRun1_ssp_raw.fif --raw ../$1_MaskedMMRun2_ssp_raw.fif --cov ../cov/$1_MaskedMMRun1.cov  --cov ../cov/$1_MaskedMMRun2.cov --gcov $1_MaskedMM_All-cov.fif --projon --lowpass 20
