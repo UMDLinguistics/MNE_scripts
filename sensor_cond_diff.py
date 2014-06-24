@@ -19,7 +19,7 @@ args=parser.parse_args()
 
 
 ##Filenames
-data_path = '/Users/Shared/Experiments/'+args.exp+'/data/'+args.subjID + '/' #Lawrence added 'Experiments' 4.23.13
+data_path = '/Volumes/CUTTLEFISH/MEG_Experiments/'+args.exp+'/data/'+args.subjID + '/' 
 data_file = data_path + args.subjID + '_' + args.par 
 
 

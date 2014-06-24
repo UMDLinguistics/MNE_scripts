@@ -25,14 +25,14 @@ parser.add_argument('par',type=str)
 args=parser.parse_args()
 
 ##Get the condCode information
-sys.path.insert(0,'/Users/Shared/Experiments/'+args.exp + '/')
+sys.path.insert(0,'/Volumes/CUTTLEFISH/MEG_Experiments/'+args.exp + '/')
 fileName =args.exp+'_condCodes'
 print fileName
 cc = __import__(fileName) ##importing condCodes
 
 
 ##Initialize path variables and read subject list
-expPath = '/Users/Shared/Experiments/'+args.exp+'/'
+expPath = '/Volumes/CUTTLEFISH/MEG_Experiments/'+args.exp+'/'
 data_path = expPath + 'data/'
 results_path = expPath +'results/'
 
