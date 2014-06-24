@@ -11,16 +11,18 @@ from writeOutput import writeTable
 
 def main(exp,sub,par):
 	
-	pre = '/Users/Shared/Experiments/'+exp+'/data' 
+	pre = '/Volumes/CUTTLEFISH/MEG_Experiments/'+exp+'/data' 
 	rej_dir = '%s/%s/rej/' % (pre, sub)
 	eve_dir = '%s/%s/eve/' % (pre, sub)
 	
 	eve = eve_dir + '%s_%sMod.eve' % (sub, par)                  
 	
+
+	codeFile = open('/Volumes/CUTTLEFISH/MEG_Experiments/'+exp+'/'+exp+'_condCodes.py', 'rb')
+	exec(codeFile.read())
 	print
 	print 'Cond codes:'
-	codeFile = open('/Users/Shared/Experiments/'+exp+'/'+exp+'_condCodes.py', 'rb')
-	exec(codeFile.read())
+	print condLabels
 	
 	print
 	print 'event file:',eve
