@@ -1,14 +1,19 @@
 ###SemPrMM
 ###Make .ave files
-###usage: python <this script.py> subjectID projType
+###usage: python <this script.py> exp subjectID paradigm
 ###ex: python makeAveFiles.py ya16 
 
 import sys
-import condCodes as cc
+#import condCodes as cc
+
 
 def makeAveFiles(exp, subjID, paradigm):
+	
+	codeFile = open('/Volumes/CUTTLEFISH/MEG_Experiments/'+exp+'/'+exp+'_condCodes.py', 'rb')
+	exec(codeFile.read())
 
-	filePrefix = '/Users/Shared/Experiments/'+exp+'/data/'+ subjID #Lawrence added 'Experiments' 4.23.13
+	filePrefix = '/Volumes/CUTTLEFISH/MEG_Experiments/'+exp+'/data/'+ subjID 
+	
  	magRej = "3000e-15"
 
 
@@ -20,13 +25,13 @@ def makeAveFiles(exp, subjID, paradigm):
 	#expList = ['SemPrime']
 ##    expList = ['BaleenHP'] ## changed on 9/7 for testing number of trials in each case(rej, PCA+rej, PCA+norej -CU)
 
-	condDict = cc.condLabels
-	preBase = cc.preBase
-	postBase = cc.postBase
+	condDict = condLabels
+	#preBase = preBase
+	#postBase = postBase
 	preBasePar = preBase[paradigm]
 	postBasePar = postBase[paradigm]
 	print condDict[paradigm]
-	print cc.epochs
+	print epochs
 
 	filename = filePrefix + '/ave/'+subjID + '_'  + paradigm + '.ave'
 	print filename
