@@ -9,6 +9,7 @@ import sys
 import copy
 import readInput
 import collections
+import writeOutput
 
 #example: run sensor_grand_avg.py NARWHAL narwhal_subj_n9 Narwhal_semprime 
 
@@ -57,14 +58,11 @@ for subj in subjList:
 	data_file = data_path + subj + '/' + subj + '_' + args.par 
 	evokeds = [mne.fiff.read_evoked(data_file + '-ave.fif', setno=event_id[cond]) for cond in event_id]
 	
-	###add to the grand-average structures
-	#evokedTemplate = []
-	#evokedTemplate.append(evokeds)
 
 	for c in range(numCond):
 		allData[c].append(evokeds[c].data)
 		allNave[c].append(evokeds[c].nave) 
-		
+
 
 #################################################################################
 #Now compute grandaverage data and sum all of the n for each subject

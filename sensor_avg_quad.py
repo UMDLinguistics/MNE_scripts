@@ -16,8 +16,6 @@ import os
 #python sensor_avg_quad.py NARWHAL narwhal_subj_n19 Narwhal "Neg ever" "Factive ever" "Ungram ever"
 #use "run" instead of "python" command if you are running this within ipython
 
-#You can optionally add arguments to do rms ("--rms") and/or thicken one of the condition lines for better visual ("-b [condition name]" or "--baseline [condition name]")
-
 ##Get input
 parser = argparse.ArgumentParser(description='Description: sensor_avg_quad.py creates a text file of MEG activity estimates from selected channels (averaged together) for selected conditions for further analysis in R')
 parser.add_argument('exp',type=str,help='enter name of experiment')
@@ -25,7 +23,7 @@ parser.add_argument('subjList',type=str,help='enter name of subject list')
 parser.add_argument('par',type=str,help='enter name of paradigm')
 parser.add_argument('condList',type=str,nargs='+',help='enter name of condition(s) of interest; separate multiple conditions with space')
 parser.add_argument('--rms',action='store_true',help='optional argument: it does root-mean-square of data')
-parser.add_argument('-b','--baseline',help='optional argument: name the baseline condition to make it visually stand out; condition must be one entered for condList')
+
 
 args=parser.parse_args()
 
@@ -50,9 +48,7 @@ print 'Quadrant directory ready for action.'
 ymin = -1e-13
 ymax = 1e-13
 
-if args.baseline:
-	if args.baseline not in args.condList:
-		sys.exit("Error: Baseline condition does not exist. It must be from condList")
+
 
 
 ##Filenames
@@ -138,6 +134,7 @@ for subj in subjList:
 				myFile.write("\t")
 			myFile.write("\n")
 			quadCountW = quadCountW + 1
+
 
 myFile.close()
 	
