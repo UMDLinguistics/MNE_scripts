@@ -82,5 +82,5 @@ for c in range(numCond):
 ################################################################################
 ##Write to file
 
-mne.fiff.write_evoked(results_path + args.subjList + '_' + 'ga' + '-ave.fif', newEvoked)
+mne.fiff.write_evoked(results_path + args.par + '_' + args.subjList + '_' + 'ga' + '-ave.fif', newEvoked)
 
